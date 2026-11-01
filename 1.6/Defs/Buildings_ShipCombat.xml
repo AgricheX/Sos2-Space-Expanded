@@ -1,0 +1,145 @@
+﻿<Defs>
+    <DesignatorDropdownGroupDef>
+		<defName>AntimatterTurrets_Kinetic</defName>
+	</DesignatorDropdownGroupDef>
+    <ThingDef ParentName="ShipTurretBuilding">
+		<defName>Antimatter_AgrKinetic</defName>
+		<label>Antimatter Turret</label>
+		<designatorDropdown>AntimatterTurrets_Kinetic</designatorDropdown>
+		<description>A powerful anti-matter Turret</description>
+		<comps>
+			<li Class="CompProperties_Stunnable">
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
+			<li Class="SaveOurShip2.CompProps_ShipHeat">
+				<compClass>SaveOurShip2.CompShipHeat</compClass>
+				<showOnRoof>true</showOnRoof>
+				<heatPerPulse>40</heatPerPulse>
+				<energyToFire>500</energyToFire>
+				<optRange>200</optRange>
+				<maxRange>350</maxRange>
+				<projectileSpeed>4</projectileSpeed>
+				<threat>30</threat>
+			</li>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>1000</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+		</comps>
+		<building>
+			<turretGunDef>Antimatter_TurretTopAgr</turretGunDef>
+			<turretBurstWarmupTime>1.5</turretBurstWarmupTime>
+			<turretBurstCooldownTime>10.0</turretBurstCooldownTime>
+			<turretTopDrawSize>10.0</turretTopDrawSize>
+		</building>
+		<costList>
+			<Steel>3000</Steel>
+			<Uranium>300</Uranium>
+			<Plasteel>500</Plasteel>
+            <Shell_AntigrainWarhead>30</Shell_AntigrainWarhead>
+		</costList>
+		<uiIconPath>Things/Building/Ship/AntimatterKinetic_MenuIcon</uiIconPath>
+		<researchPrerequisites>
+			<li>ShipTurretLarge</li>
+		</researchPrerequisites>
+		<graphicData>
+		    <texPath>Things/Building/Ship/HardpointBlack</texPath>
+			<drawSize>(9,9)</drawSize>
+		</graphicData>
+		<size>(9,9)</size>
+	</ThingDef>
+	<ThingDef ParentName="BaseShipArtilleryWeapon">
+		<defName>Antimatter_TurretTopAgr</defName>
+		<label>Antimatter</label>
+		<description>Antimatter Turret. Best used to destroy enemy command center.</description>
+		<graphicData>
+			<texPath>Things/Building/Ship/AntimatterTurretKinetic</texPath>
+		</graphicData>
+		<verbs>
+			<li>
+				<label>shoot slug</label>
+				<verbClass>SaveOurShip2.Verb_LaunchProjectileShip</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<range>4000</range>
+				<warmupTime>0.5</warmupTime>
+				<forcedMissRadius>1</forcedMissRadius>
+				<noiseRadius>4</noiseRadius>
+				<ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
+				<soundCast>ShipCombatKineticLarge</soundCast>
+				<requireLineOfSight>false</requireLineOfSight>
+				<targetParams>
+				    <canTargetLocations>true</canTargetLocations>
+				</targetParams>
+				<defaultProjectile>AntimatterProjectile_Agr</defaultProjectile>
+				<spawnDef>Bullet_Fake_AntimatterKinetic_Large</spawnDef>
+				<rangedFireRulepack>Combat_RangedFire_Thrown</rangedFireRulepack>
+				<burstShotCount>10</burstShotCount>
+			</li>
+		</verbs>
+	</ThingDef>
+	<ThingDef ParentName="BaseBullet">
+		<defName>Bullet_Fake_AntimatterKinetic_Large</defName>
+		<label>antimatter slug</label>
+		<graphicData>
+			<texPath>Things/Projectile/AgrAntimatterProjectile</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>TransparentPostLight</shaderType>
+			<drawSize>(18,18)</drawSize>
+		</graphicData>
+		<thingClass>SaveOurShip2.Projectile_ShipFake</thingClass>
+		<projectile>
+			<damageDef>Bomb</damageDef>
+			<speed>300</speed>
+			<explosionRadius>0</explosionRadius>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+		</projectile>
+		<altitudeLayer>MetaOverlays</altitudeLayer>
+		<seeThroughFog>true</seeThroughFog>
+	</ThingDef>
+	<ThingDef ParentName="BaseGrenadeProjectile">
+		<defName>AntimatterProjectile_Agr</defName>
+		<label>antimatter slug</label>
+		<thingClass>SaveOurShip2.Projectile_ExplosiveShip</thingClass>
+		<graphicData>
+			<texPath>Things/Projectile/AgrAntimatterProjectile</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>TransparentPostLight</shaderType>
+			<drawSize>(18,18)</drawSize>
+		</graphicData>
+		<projectile>
+			<explosionRadius>20</explosionRadius>
+			<damageDef>BombKineticAntimatter</damageDef>
+			<speed>300</speed>
+		</projectile>
+	</ThingDef>
+	<DamageDef Name="BombKineticAntimatter">
+		<defName>BombKineticAntimatter</defName>
+		<label>antimmaterbomb</label>
+		<workerClass>DamageWorker_AddInjury</workerClass>
+		<externalViolence>true</externalViolence>
+		<isExplosive>true</isExplosive>
+		<deathMessage>{0} has died in an antimmater explosion.</deathMessage>
+		<hediff>Shredded</hediff>
+		<hediffSolid>Crack</hediffSolid>
+		<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		<impactSoundType>Blunt</impactSoundType>
+		<armorCategory>Sharp</armorCategory>
+		<minDamageToFragment>15</minDamageToFragment>
+		<defaultDamage>1000</defaultDamage>
+		<defaultStoppingPower>9.0</defaultStoppingPower>
+		<defaultArmorPenetration>9.0</defaultArmorPenetration>
+		<buildingDamageFactor>4</buildingDamageFactor>
+		<plantDamageFactor>4</plantDamageFactor>
+		<explosionAffectOutsidePartsOnly>false</explosionAffectOutsidePartsOnly>
+		<explosionHeatEnergyPerCell>5</explosionHeatEnergyPerCell>
+		<explosionCellFleck>BlastDry</explosionCellFleck>
+		<explosionColorCenter>(0.5, 0, 1)</explosionColorCenter>
+		<explosionColorEdge>(0, 0, 0)</explosionColorEdge>
+		<soundExplosion>Explosion_Bomb</soundExplosion>
+		<combatLogRules>Damage_Bomb</combatLogRules>
+	</DamageDef>
+</Defs>

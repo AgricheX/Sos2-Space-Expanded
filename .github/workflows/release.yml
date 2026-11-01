@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "README.md"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      MOD_FOLDER: "Sos2 Space Expanded"
+      ZIP_NAME: "Sos2SpaceExpanded"
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read version
+        id: v
+        run: echo "version=$(python3 -c "import re;t=open('About/About.xml',encoding='utf-8-sig').read();m=re.search(r'<modVersion>([^<]+)</modVersion>',t);print(m.group(1).strip() if m else '1.0.0')")" >> "$GITHUB_OUTPUT"
+      - name: Build zip
+        run: |
+          mkdir -p "dist/$MOD_FOLDER"
+          rsync -a --exclude ".git" --exclude ".github" --exclude "dist" --exclude "README.md" ./ "dist/$MOD_FOLDER/"
+          cd dist && zip -qr "$ZIP_NAME.zip" "$MOD_FOLDER"
+      - name: Publish release
+        run: |
+          TAG="v${{ steps.v.outputs.version }}"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "dist/$ZIP_NAME.zip" --clobber
+          else
+            gh release create "$TAG" "dist/$ZIP_NAME.zip" --title "$TAG" --notes "Download $ZIP_NAME.zip and extract it into your RimWorld Mods folder. / Baixe o $ZIP_NAME.zip e extraia na pasta Mods do RimWorld." --latest
+          fi

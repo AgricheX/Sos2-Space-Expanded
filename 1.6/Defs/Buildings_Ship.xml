@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <ThingDef ParentName="BuildingBase">
+		<defName>ShipPilotAgrBridge</defName>
+		<label>Bridge Ship</label>
+		<designatorDropdown>Ship_Bridges</designatorDropdown>
+		<thingClass>SaveOurShip2.Building_ShipBridge</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Ship/AgrShipBridge</texPath>
+			<graphicClass>Graphic_MultiOnOff</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(5,3.5)</drawSize>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<hasInteractionCell>True</hasInteractionCell>
+		<interactionCellOffset>(0,0,1)</interactionCellOffset>
+		<interactionCellIconReverse>true</interactionCellIconReverse>
+		<stealable>false</stealable>
+		<size>(3,1)</size>
+		<pathCost>30</pathCost>
+		<fillPercent>0.40</fillPercent>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<tickerType>Normal</tickerType>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<description>Allows colonists to pilot a starship. Allows colonists to scan for objects of interest, observe sites from orbit and scan enemy ship interiors in combat.</description>
+		<designationCategory>Ship</designationCategory>
+		<costList>
+			<Steel>40</Steel>
+		</costList>
+		<comps>
+			<li Class="SaveOurShip2.CompProps_ShipCachePart"/>
+			<li Class="CompProperties_ShipPart"/>
+			<li Class="CompProperties_Mannable"/>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="SaveOurShip2.CompProps_ShipScanner"/>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>100</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="SaveOurShip2.CompProps_GraphicOnOff"/>
+			<li Class="SaveOurShip2.CompProps_ShipHeat">
+				<compClass>SaveOurShip2.CompShipHeat</compClass>
+			</li>
+		</comps>
+		<statBases>
+			<MaxHitPoints>120</MaxHitPoints>
+			<WorkToBuild>5000</WorkToBuild>
+			<Mass>8</Mass>
+			<Flammability>0</Flammability>
+			<Beauty>1</Beauty>
+		</statBases>
+		<building>
+			<isSittable>true</isSittable>
+		</building>
+		<placeWorkers>
+			<li>SaveOurShip2.PlaceWorker_OnShipHull</li>
+		</placeWorkers>
+		<researchPrerequisites>
+			<li>ShipPilotSeat</li>
+		</researchPrerequisites>
+		<interactionCellIcon>DiningChair</interactionCellIcon>
+	</ThingDef>
+
+    <ThingDef ParentName="BuildingBase">
+		<defName>Ship_AntimatterReactor</defName>
+		<label>Ship Antimatter Reactor</label>
+		<designatorDropdown>Ship_Reactors</designatorDropdown>
+		<thingClass>Building</thingClass>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<graphicData>
+			<texPath>Things/Building/Ship/AntimatterReator</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(5.3,5.3)</drawSize>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<researchPrerequisites>
+			<li>ShipReactor</li>
+		</researchPrerequisites>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>50</pathCost>
+		<blockWind>true</blockWind>
+		<castEdgeShadows>true</castEdgeShadows>
+		<fillPercent>0.9</fillPercent>
+		<blockLight>false</blockLight>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>100000</WorkToBuild>
+			<MaxHitPoints>3000</MaxHitPoints>
+			<Flammability>0</Flammability>
+		</statBases>
+        <seeThroughFog>true</seeThroughFog>
+		<tickerType>Normal</tickerType>
+		<description>An antimatter reactor capable of generating energy through the void.\n\nHeat Capacity: 1,000Hu/s\nHeat Vaporization: 10Hu/s\nHeat Loss: 0Hu/s\nPower: 1,000,000W</description>
+		<size>(5,5)</size>
+		<designationCategory>Ship</designationCategory>
+		<costList>
+			<Steel>5000</Steel>
+			<Plasteel>1000</Plasteel>
+            <Shell_AntigrainWarhead>10</Shell_AntigrainWarhead>
+			<Silver>500</Silver>
+            <Gold>1000</Gold>
+            <Uranium>500</Uranium>
+		</costList>
+		<comps>
+			<li Class="SaveOurShip2.CompProps_ShipHeat">
+				<compClass>SaveOurShip2.CompShipHeatSink</compClass>
+				<showOnRoof>true</showOnRoof>
+				<heatCapacity>1000</heatCapacity>
+				<heatVent>10</heatVent>
+				<heatLoss>0</heatLoss>
+				<threat>2000</threat>
+				<antiEntropic>true</antiEntropic>
+			</li>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerPlant</compClass>
+				<basePowerConsumption>-1000000</basePowerConsumption>
+				<shortCircuitInRain>false</shortCircuitInRain>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li>
+				<compClass>CompColorable</compClass>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>SaveOurShip2.PlaceWorker_OnShipHull</li>
+		</placeWorkers>
+		<rotatable>false</rotatable>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<staticSunShadowHeight>1.0</staticSunShadowHeight>
+		<designationHotKey>Misc4</designationHotKey>
+		<constructionSkillPrerequisite>12</constructionSkillPrerequisite>
+        <modExtensions>
+            <li Class = "Vehicles.CustomCostDefModExtension">
+                <cost>10000</cost>
+            </li>
+        </modExtensions>
+	</ThingDef>
+
+	<ThingDef ParentName="BuildingShipBase">
+		<defName>Ship_Engine_Void</defName>
+		<label>Void Engine</label>
+		<designatorDropdown>Ship_Engines</designatorDropdown>
+		<thingClass>Building</thingClass>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<graphicData>
+			<texPath>Things/Building/Ship/AntimatterEngine</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(5,5)</drawSize>
+		</graphicData>
+		<altitudeLayer>BuildingOnTop</altitudeLayer>
+		<researchPrerequisites>
+			<li>ShipEngine</li>
+			<li>ShipReactor</li>
+		</researchPrerequisites>
+		<statBases>
+			<WorkToBuild>300000</WorkToBuild>
+			<MaxHitPoints>4000</MaxHitPoints>
+			<Flammability>0</Flammability>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<description>A void engine capable of launching a ship into orbit. Not suitable for interplanetary travel.\n\nTakes energy directly from the void\nMax takeoff strength: 24,000</description>
+		<size>(5,5)</size>
+		<receivesSignals>true</receivesSignals>
+		<designationCategory>Ship</designationCategory>
+		<comps>
+			<li Class="SaveOurShip2.CompProps_ShipCachePart">
+				<hermetic>true</hermetic>
+			</li>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>10</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+            <li Class="CompProperties_Flickable"/>
+            <li Class="SaveOurShip2.CompProps_EngineTrail">
+				<!--graphicData>
+					<texPath>Things/Building/Ship/NuclearEngineTrail</texPath>
+					<graphicClass>Graphic_Multi</graphicClass>
+					<drawSize>(7,26.5)</drawSize>
+				</graphicData-->
+				<energy>true</energy>
+				<reactionless>true</reactionless>
+				<thrust>24</thrust>
+			</li>
+		</comps>
+		<building>
+			<shipPart>true</shipPart>
+		</building>
+		<costList>
+			<Steel>2400</Steel>
+			<Plasteel>350</Plasteel>
+            <Shell_AntigrainWarhead>5</Shell_AntigrainWarhead>
+			<ComponentIndustrial>30</ComponentIndustrial>
+			<Silver>100</Silver>
+            <Gold>50</Gold>
+		</costList>
+		<designationHotKey>Misc5</designationHotKey>
+	</ThingDef>
+
+    <ThingDef ParentName="ShipHeatsinkBase">
+		<defName>Ship_SuperHeatCapacity</defName>
+		<label>Super Heat Sink</label>
+		<holdsRoof>true</holdsRoof>
+		<altitudeLayer>Gas</altitudeLayer>
+		<description>A super heatsink that slowly removes heat from the heat network. Will take damage if coolant gets near maximum heat capacity and release all heat stored if destroyed. Will slowly replenish capacity from depletion when not in battle. Does not function if the ship is cloaked.\n\nHeat capacity: 10,000Hu\nHeat vented to space: 64Hu/s\nHeat loss: 12Hu/s</description>
+		<size>(4,4)</size>
+		<graphicData>
+			<texPath>Things/Building/Ship/SuperHeatCapacity</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(4,4)</drawSize>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>1600</MaxHitPoints>
+			<WorkToBuild>12000</WorkToBuild>
+			<Flammability>0</Flammability>
+			<Beauty>-2</Beauty>
+		</statBases>
+		<passability>Impassable</passability>
+		<seeThroughFog>true</seeThroughFog>
+		<costList>
+			<Steel>1500</Steel>
+			<Plasteel>500</Plasteel>
+			<Silver>700</Silver>
+			<ComponentIndustrial>20</ComponentIndustrial>
+		</costList>
+		<comps>
+			<li Class="SaveOurShip2.CompProps_ShipHeat">
+				<compClass>SaveOurShip2.CompShipHeatSink</compClass>
+				<showOnRoof>true</showOnRoof>
+                <heatCapacity>15000</heatCapacity>
+				<heatVent>64</heatVent>
+				<heatLoss>12</heatLoss>
+				<threat>12</threat>
+			</li>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTransmitter</compClass>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li>
+				<compClass>CompColorable</compClass>
+			</li>
+		</comps>
+		<building>
+			<paintable>true</paintable>
+		</building>
+		<researchPrerequisites>
+			<li>ShipHeatsink</li>
+		</researchPrerequisites>
+	</ThingDef>
+</Defs>
